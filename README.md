@@ -4,7 +4,7 @@ Character AI Telegram BOT
 
 Чтобы узнать свой токен авторизации заходим в любой диалог, жмём F12 - Networking. Пишем любое сообщение, появляется /streaming, нажимаем, открываем вкладку Headers - Request Headers - authorization. ПКМ - copy value.
 
-Ну и соотвественно вставить свои значени в
+Ну и соотвественно вставить свои значения в bot.py
 
 bot = telebot.TeleBot('111111111:111111111111111111111111') #Bot Father
 
