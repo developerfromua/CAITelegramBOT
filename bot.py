@@ -5,8 +5,8 @@ import re
 from googletrans import Translator
 from telebot.types import ReplyKeyboardMarkup, InlineKeyboardMarkup, InlineKeyboardButton
 
-bot = telebot.TeleBot('111111111:11111111111111111111111111')
-token = 'Token 1111111111111111111111111111111111'
+bot = telebot.TeleBot('111111111:11111111111111111111111111') # BotFather
+token = 'Token 1111111111111111111111111111111111' # F12 Networking
 
 markup = InlineKeyboardMarkup()
 markup.add(InlineKeyboardButton(text='◀️', callback_data=f'back'),(InlineKeyboardButton(text='▶️', callback_data=f'next')))
