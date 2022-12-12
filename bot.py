@@ -5,16 +5,16 @@ import re
 from googletrans import Translator
 from telebot.types import ReplyKeyboardMarkup, InlineKeyboardMarkup, InlineKeyboardButton
 
-bot = telebot.TeleBot('111111111:111111111111111111111111') #Bot Father
-token = 'Token 1111111111111111111111111111111111111111' #F12 - Networking 
+bot = telebot.TeleBot('111111111:11111111111111111111111111')
+token = 'Token 1111111111111111111111111111111111'
 
 markup = InlineKeyboardMarkup()
 markup.add(InlineKeyboardButton(text='◀️', callback_data=f'back'),(InlineKeyboardButton(text='▶️', callback_data=f'next')))
 markup2 = InlineKeyboardMarkup()
-markup2.add(InlineKeyboardButton(text='Bully Maid', callback_data=f'bully'),(InlineKeyboardButton(text='Gawr Gura', callback_data=f'gura')))
-markup2.add(InlineKeyboardButton(text='Astolfo', callback_data=f'astolfo'),(InlineKeyboardButton(text='Misaki', callback_data=f'misaki')))
-markup2.add(InlineKeyboardButton(text='Ульяна', callback_data=f'ulyana'),(InlineKeyboardButton(text='Семён', callback_data=f'semen')))
-markup2.add(InlineKeyboardButton(text='БУГУРТ', callback_data=f'bugurt'),(InlineKeyboardButton(text='Человек-анекдот', callback_data=f'anekdot')))
+markup2.add(InlineKeyboardButton(text='Bully Maid', callback_data=f'bully'),(InlineKeyboardButton(text='Gawr Gura', callback_data=f'gura')),(InlineKeyboardButton(text='Kasey the bully girl', callback_data=f'kasey')))
+markup2.add(InlineKeyboardButton(text='Astolfo', callback_data=f'astolfo'),(InlineKeyboardButton(text='Misaki', callback_data=f'misaki')),(InlineKeyboardButton(text='Darkness Eroness', callback_data=f'darkness')))
+markup2.add(InlineKeyboardButton(text='Ульяна', callback_data=f'ulyana'),(InlineKeyboardButton(text='Семён', callback_data=f'semen')),(InlineKeyboardButton(text='Aqua', callback_data=f'aqua')))
+markup2.add(InlineKeyboardButton(text='БУГУРТ', callback_data=f'bugurt'),(InlineKeyboardButton(text='Человек-анекдот', callback_data=f'anekdot')),(InlineKeyboardButton(text='Yuno Gasai', callback_data=f'gasai')))
 @bot.message_handler(commands=['setbot'])
 def start_message(message):
 	if current_character=='':
@@ -36,6 +36,14 @@ def start_message(message):
 			bot.send_message(message.chat.id,"Текущий персонаж: Bugurt", reply_markup = markup2)
 		elif (current_character=='anekdot'):
 			bot.send_message(message.chat.id,"Текущий персонаж: Человек-анекдот", reply_markup = markup2)	
+		elif (current_character=='kasey'):
+			bot.send_message(message.chat.id,"Текущий персонаж: Kasey the bully girl", reply_markup = markup2)	
+		elif (current_character=='darkness'):
+			bot.send_message(message.chat.id,"Текущий персонаж: Darkness Eroness", reply_markup = markup2)	
+		elif (current_character=='aqua'):
+			bot.send_message(message.chat.id,"Текущий персонаж: Aqua", reply_markup = markup2)	
+		elif (current_character=='gasai'):
+			bot.send_message(message.chat.id,"Текущий персонаж: Yuno Gasai", reply_markup = markup2)	
 @bot.message_handler(commands=['restart'])
 def restart_chat(message):
 	restart()
@@ -183,6 +191,22 @@ character_anektod = {
 	'character_external_id': 'CSHl-WkyGM6xKXjgjUHUTJ3m9lR-nYK6V8oQXZ_uwNE',
 	'tgt': 'internal_id:8cbee070-b74d-4548-8057-2a57f8268c0a'
 }
+character_kasey = {
+	'character_external_id': 'VGUsZNN8ySuwuPn22Y2kF8Am1zLgWP-6BKPT5ctxF0Y',
+	'tgt': 'internal_id:97215:3378d1ec-add7-4a65-8fb2-2d4c0089b63e'
+}
+character_darkness = {
+	'character_external_id': 'kBBdsHcsByk8sqv-pAe3f7rzrjWzRoj6sn_qKfWup4o',
+	'tgt': 'internal_id:103308:461b6092-ebc2-4d98-a27c-7f185a51a1d7'
+}
+character_aqua = {
+	'character_external_id': '3d5lH_cZ64kttfdj2lPdl8buypWlCQBiGi3AroC9fpc',
+	'tgt': 'internal_id:92119:41473b05-08fb-419c-b50e-c355a0869cd3'
+}
+character_gasai = {
+	'character_external_id': '7AQJ68FnxnNAmJBDizkwB05pN7BRBg9VB1vvDZtQEdk',
+	'tgt': 'internal_id:91118:8434c703-640b-4f6d-8800-c19c6511e835'
+}
 headers["authorization"] = token
 update_headers["authorization"] = token
 
@@ -296,6 +320,22 @@ def set_character():
 		current_character_id = character_anektod["character_external_id"]
 		current_tgt = character_anektod["tgt"]
 		restart()
+	elif current_character=='kasey':
+		current_character_id = character_kasey["character_external_id"]
+		current_tgt = character_kasey["tgt"]
+		restart()
+	elif current_character=='darkness':
+		current_character_id = character_darkness["character_external_id"]
+		current_tgt = character_darkness["tgt"]
+		restart()
+	elif current_character=='aqua':
+		current_character_id = character_aqua["character_external_id"]
+		current_tgt = character_aqua["tgt"]
+		restart()
+	elif current_character=='gasai':
+		current_character_id = character_gasai["character_external_id"]
+		current_tgt = character_gasai["tgt"]
+		restart()
 
 @bot.callback_query_handler(func=lambda call:True)
 def callback_query(call):
@@ -375,6 +415,22 @@ def callback_query(call):
 			current_character = 'anekdot'
 			set_character()
 			bot.send_message(call.message.chat.id, 'Новый персонаж создан. Напиши сообщение.')
+		elif req[0] == 'kasey':
+			current_character = 'kasey'
+			set_character()
+			bot.send_message(call.message.chat.id, 'Новый персонаж создан. Напиши сообщение.')
+		elif req[0] == 'darkness':
+			current_character = 'darkness'
+			set_character()
+			bot.send_message(call.message.chat.id, 'Новый персонаж создан. Напиши сообщение.')
+		elif req[0] == 'aqua':
+			current_character = 'aqua'
+			set_character()
+			bot.send_message(call.message.chat.id, 'Новый персонаж создан. Напиши сообщение.')
+		elif req[0] == 'gasai':
+			current_character = 'gasai'
+			set_character()
+			bot.send_message(call.message.chat.id, 'Новый персонаж создан. Напиши сообщение.')
 	except Exception as e:
 		print('Error while swiping: ', e)
 
@@ -396,6 +452,6 @@ def handle_text(message):
 				print("Some error occured while sending message: ", e)
 	except Exception as e:
 		print("Some error occured while sending message: ", e)
-
+# Запускаем бота
 bot.polling(none_stop=True, interval=0, timeout=600)
 
