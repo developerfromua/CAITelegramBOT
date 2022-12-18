@@ -91,7 +91,7 @@ current_tgt = ''
 
 headers = {
 	'authority': 'beta.character.ai',
-	'accept': '*/*',
+	# 'accept': '*/*',
 	'accept-language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7,ja;q=0.6',
 	'authorization': '',
 	'content-type': 'application/json',
@@ -104,7 +104,7 @@ headers = {
 	'sec-fetch-dest': 'empty',
 	'sec-fetch-mode': 'cors',
 	'sec-fetch-site': 'same-origin',
-	'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36',
+	# 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36',
 }
 
 json_data = {
@@ -138,7 +138,7 @@ json_data = {
 }
 update_headers = {
 	'authority': 'beta.character.ai',
-	'accept': '*/*',
+	# 'accept': '*/*',
 	'accept-language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7,ja;q=0.6',
 	'authorization': '',
 	'content-type': 'application/json',
@@ -148,7 +148,7 @@ update_headers = {
 	'sec-fetch-dest': 'empty',
 	'sec-fetch-mode': 'cors',
 	'sec-fetch-site': 'same-origin',
-	'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36',
+	# 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36',
 }
 update_json_data = {
 	'message_id': '',
