@@ -69,12 +69,7 @@ def restart():
 
 arr = []
 trs = []
-x1 = ''
-x2 = ''
-x3 = ''
-x4 = ''
 data = ''
-out = ''
 final = ''
 final2 = ''
 final3 = ''
@@ -438,8 +433,6 @@ def callback_query(call):
 def handle_text(message):
 	try:
 		global json_data
-		global x1,x2,x3,x4
-		global out
 		json_data["text"] = message.text
 		print('Message: ', message.text)
 		if current_character=='':
