@@ -218,9 +218,6 @@ def send_msg():
 
 			print('Response:', response.status_code)
 			f = response.text
-			log = open('response.txt', 'w')
-			log.write(f)
-			log.close()
 
 			for matched in re.findall(r'{\"text\": \"(.*?)}', f):
 				arr.append(matched)
