@@ -2,7 +2,6 @@ import telebot
 import requests
 import json
 import re
-from googletrans import Translator
 from telebot.types import ReplyKeyboardMarkup, InlineKeyboardMarkup, InlineKeyboardButton
 
 bot = telebot.TeleBot('111111111:11111111111111111111111111') # BotFather
