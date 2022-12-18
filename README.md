@@ -22,7 +22,10 @@ token = 'Token 1111111111111111111111111111111111111111' #F12 - Networking
 Необходим Python 3.10.9 64-bit
 
 Зависимости
+
 pip install telebot requests json re
+
 Запуск
+
 python bot.py 
 
