@@ -68,16 +68,11 @@ def restart():
 		print('Error: ', e)
 
 arr = []
-trs = []
 data = ''
 final = ''
 final2 = ''
-final3 = ''
-final4 = ''
 msg_id = ''
 msg_id2 = ''
-msg_id3 = ''
-msg_id4 = ''
 cursor = 1
 current_character = ''
 current_history_id =''
@@ -208,10 +203,8 @@ update_headers["authorization"] = token
 def send_msg():
 	try:
 		global arr
-		global trs
-		global x1,x2,x3,x4
-		global final,final2,final3,final4
-		global msg_id,msg_id2,msg_id3,msg_id4
+		global final,final2
+		global msg_id,msg_id2
 		global cursor
 		global current_character_id
 		global current_history_id
@@ -233,22 +226,12 @@ def send_msg():
 				arr.append(matched)
 			str = '{"text": "' + arr[-1] + '}'
 			str2 = '{"text": "' + arr[-2] + '}'
-			str3 = '{"text": "' + arr[-3] + '}'
-			str4 = '{"text": "' + arr[-4] + '}'
 			try:
 				data = json.loads(str)
 			except Exception as e:
 				print("Some error occured while loading json")
 			try:	
 				data2 = json.loads(str2)
-			except Exception as e:
-				print("Some error occured while loading json")
-			try:
-				data3 = json.loads(str3)
-			except Exception as e:
-				print("Some error occured while loading json")
-			try:
-				data4 = json.loads(str4)
 			except Exception as e:
 				print("Some error occured while loading json")
 			try:
@@ -261,19 +244,6 @@ def send_msg():
 				msg_id2 = data2['id']
 			except Exception as e:
 				print("Some error occured while parsing json")
-			try:
-				final3 = data3['text']
-				msg_id3 = data3['id']
-			except Exception as e:
-				print("Some error occured while parsing json")
-			try:
-				final4 = data4['text']
-				msg_id4 = data4['id']
-			except Exception as e:
-				print("Some error occured while parsing json")
-			
-			# if (msg_id!=''):
-			# 	update_json_data["message_id"] = msg_id
 		else:
 			print('Something empty')
 	except Exception as e:
@@ -345,12 +315,12 @@ def callback_query(call):
 			if req[0] == 'back':
 						cursor = cursor - 1
 						if cursor < 1:
-							cursor = 4
+							cursor = 2
 						print('back is pressed')
 			#Обработка кнопки - назад
 			elif req[0] == 'next':
 						cursor = cursor + 1
-						if cursor > 4:
+						if cursor > 2:
 							cursor = 1
 						print('next is pressed')
 			if cursor == 1:
@@ -365,18 +335,6 @@ def callback_query(call):
 				response_update = requests.post('https://beta.character.ai/chat/msg/update/primary/', headers=update_headers, json=update_json_data)
 				print('Primary:', response_update.text)
 				print(msg_id2)
-			elif cursor == 3:
-				current_msg = final3
-				update_json_data["message_id"] = msg_id3
-				response_update = requests.post('https://beta.character.ai/chat/msg/update/primary/', headers=update_headers, json=update_json_data)
-				print('Primary:', response_update.text)
-				print(msg_id3)
-			elif cursor == 4:
-				current_msg = final4
-				update_json_data["message_id"] = msg_id4
-				response_update = requests.post('https://beta.character.ai/chat/msg/update/primary/', headers=update_headers, json=update_json_data)
-				print('Primary:', response_update.text)
-				print(msg_id4)
 			bot.edit_message_text(current_msg, reply_markup = markup, chat_id=call.message.chat.id, message_id=call.message.message_id)
 		elif req[0] == 'bully':
 			current_character = 'bully'
