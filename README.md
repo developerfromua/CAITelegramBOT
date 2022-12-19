@@ -17,6 +17,7 @@ Character AI Telegram BOT
 Ну и соотвественно вставить свои значения в bot.py
 
 bot = telebot.TeleBot('111111111:111111111111111111111111') #Bot Father
+
 token = 'Token 1111111111111111111111111111111111111111' #F12 - Networking
 
 Необходим Python 3.10.9 64-bit
