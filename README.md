@@ -24,7 +24,7 @@ token = 'Token 1111111111111111111111111111111111111111' #F12 - Networking
 
 Зависимости
 
-pip install telebot requests json re
+pip install telebot requests json re cloudscraper
 
 Запуск
 
