@@ -2,10 +2,14 @@ import telebot
 import requests
 import json
 import re
+import cloudscraper
+from googletrans import Translator
 from telebot.types import ReplyKeyboardMarkup, InlineKeyboardMarkup, InlineKeyboardButton
 
-bot = telebot.TeleBot('111111111:11111111111111111111111111') # BotFather
-token = 'Token 1111111111111111111111111111111111' # F12 Networking
+bot = telebot.TeleBot('11111111:111111111111111111111111111111')
+token = 'Token 1111111111111111111111111111111111111'
+
+scraper = cloudscraper.create_scraper(browser={'browser': 'firefox','platform': 'windows','mobile': False})
 
 markup = InlineKeyboardMarkup()
 markup.add(InlineKeyboardButton(text='◀️', callback_data=f'back'),(InlineKeyboardButton(text='▶️', callback_data=f'next')))
@@ -58,7 +62,7 @@ def restart():
 	global current_history_id
 	try:
 		restart_json_data["character_external_id"] = current_character_id
-		response_restart = requests.post('https://beta.character.ai/chat/history/create/', headers=update_headers, json=restart_json_data)
+		response_restart = scraper.post('https://beta.character.ai/chat/history/create/', headers=restart_headers, json=restart_json_data)
 		restart_json = json.loads(response_restart.text)
 		# current_tgt = restart_json['participants'][1]['user']['username']
 		current_history_id = restart_json['external_id']
@@ -126,18 +130,39 @@ json_data = {
 	'voice_enabled': False,
 }
 update_headers = {
-	'authority': 'beta.character.ai',
-	# 'accept': '*/*',
-	'accept-language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7,ja;q=0.6',
-	'authorization': '',
-	'content-type': 'application/json',
-	'sec-ch-ua': '"Google Chrome";v="107", "Chromium";v="107", "Not=A?Brand";v="24"',
-	'sec-ch-ua-mobile': '?0',
-	'sec-ch-ua-platform': '"Windows"',
-	'sec-fetch-dest': 'empty',
-	'sec-fetch-mode': 'cors',
-	'sec-fetch-site': 'same-origin',
-	# 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36',
+		'authority': 'beta.character.ai',
+		#'accept': 'application/json, text/plain, */*',
+		'accept-language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7,ja;q=0.6',
+		'authorization': '',
+		'content-type': 'application/json',
+		'dnt': '1',
+		'origin': 'https://beta.character.ai',
+		#'referer': 'https://beta.character.ai/chat?char=QNo6qEn2GS5BjV4QDR6df0rO94WswrnHh3D4izT64zI',
+		'sec-ch-ua': '"Not?A_Brand";v="8", "Chromium";v="108", "Google Chrome";v="108"',
+		'sec-ch-ua-mobile': '?0',
+		'sec-ch-ua-platform': '"Windows"',
+		'sec-fetch-dest': 'empty',
+		'sec-fetch-mode': 'cors',
+		'sec-fetch-site': 'same-origin',
+		#'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36',
+}
+
+restart_headers = {
+    'authority': 'beta.character.ai',
+    # 'accept': 'application/json, text/plain, */*',
+    'accept-language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7,ja;q=0.6',
+    'authorization': '',
+    'content-type': 'application/json',
+    'dnt': '1',
+    'origin': 'https://beta.character.ai',
+    #'referer': 'https://beta.character.ai/chat?char=to2sEAWBxSW8NuGv-XiMWMHhZOlf0bRGn7amKUJjyZw',
+    'sec-ch-ua': '"Not?A_Brand";v="8", "Chromium";v="108", "Google Chrome";v="108"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    # 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36',
 }
 update_json_data = {
 	'message_id': '',
@@ -145,7 +170,7 @@ update_json_data = {
 }
 restart_json_data = {
 	'character_external_id': '',
-	'override_history_set': 'null'
+	'override_history_set': None
 }
 #characters
 character_bully_maid = {
@@ -198,6 +223,7 @@ character_gasai = {
 }
 headers["authorization"] = token
 update_headers["authorization"] = token
+restart_headers["authorization"] = token
 
 def send_msg():
 	try:
@@ -213,10 +239,13 @@ def send_msg():
 		json_data['tgt'] = current_tgt
 		if (current_character_id!='' and current_history_id!='' and current_tgt!=''):
 			cursor = 1
-			response = requests.post('https://beta.character.ai/chat/streaming/', headers=headers, json=json_data)
+			response = scraper.post('https://beta.character.ai/chat/streaming/', headers=headers, json=json_data)
 
 			print('Response:', response.status_code)
 			f = response.text
+			log = open('response.txt', 'w')
+			log.write(f)
+			log.close()
 
 			for matched in re.findall(r'{\"text\": \"(.*?)}', f):
 				arr.append(matched)
@@ -322,13 +351,13 @@ def callback_query(call):
 			if cursor == 1:
 				current_msg = final
 				update_json_data["message_id"] = msg_id
-				response_update = requests.post('https://beta.character.ai/chat/msg/update/primary/', headers=update_headers, json=update_json_data)
+				response_update = scraper.post('https://beta.character.ai/chat/msg/update/primary/', headers=update_headers, json=update_json_data)
 				print('Primary:', response_update.text)
 				print(msg_id)
 			elif cursor == 2:
 				current_msg = final2
 				update_json_data["message_id"] = msg_id2
-				response_update = requests.post('https://beta.character.ai/chat/msg/update/primary/', headers=update_headers, json=update_json_data)
+				response_update = scraper.post('https://beta.character.ai/chat/msg/update/primary/', headers=update_headers, json=update_json_data)
 				print('Primary:', response_update.text)
 				print(msg_id2)
 			bot.edit_message_text(current_msg, reply_markup = markup, chat_id=call.message.chat.id, message_id=call.message.message_id)
