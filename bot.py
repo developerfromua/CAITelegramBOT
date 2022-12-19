@@ -7,7 +7,7 @@ from googletrans import Translator
 from telebot.types import ReplyKeyboardMarkup, InlineKeyboardMarkup, InlineKeyboardButton
 
 bot = telebot.TeleBot('11111111:111111111111111111111111111111')
-token = 'Token 11111111111111111111111111111111111111'
+token = 'Token 111111111111111111111111111111111111111'
 
 scraper = cloudscraper.create_scraper(browser={'browser': 'firefox','platform': 'windows','mobile': False})
 
